@@ -34,7 +34,7 @@ int main()
 	clock_t start, end;
     int time_dif;
     int i;
-    pthread_t tid;
+    pthread_t tid[num_thread];
     
     for (i=0; i<num_sum; i++)
 		data[i] = i;
@@ -46,11 +46,11 @@ int main()
  
 	start = clock();
     for (i = 0; i < num_thread; i++)
-        pthread_create(&tid, NULL, &Sum, (void *)i);
+        pthread_create(&tid[i], NULL, &Sum, (void *)i);
     end = clock();
     
     for (i = 0; i < num_thread; i++)
-		pthread_join(tid,NULL);			//blocking untuk eksekusi thread berikutnya sampai semua thread terminate
+		pthread_join(tid[i],NULL);			//blocking untuk eksekusi thread berikutnya sampai semua thread terminate
 		
 	time_dif = (end - start)*1000/CLOCKS_PER_SEC;
 	
